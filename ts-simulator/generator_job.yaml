@@ -15,10 +15,14 @@ spec:
     spec:
       containers:
       - name: generator-job
-        image: jupyter/scipy-notebook
-        command:
-          - "/bin/bash"
-          - "-c"
-          - "pip install pymongo && pip install kafka-python && git clone https://github.com/AurelienGalicher/my-ml-prod-kit.git && cd my-ml-prod-kit/pyscripts && ipython lin_reg_generator.py kafka:9092 mltest"
+        image: gcr.io/my-ml-prod-env/ts-generator:0
+        args:
+          - kafka:9092
+          - mltest
+        #jupyter/scipy-notebook
+        #command:
+        #  - "/bin/bash"
+        #  - "-c"
+        #  - "pip install pymongo && pip install kafka-python && git clone https://github.com/AurelienGalicher/my-ml-prod-kit.git && cd my-ml-prod-kit/pyscripts && ipython lin_reg_generator.py kafka:9092 mltest"
 
       restartPolicy: Always
