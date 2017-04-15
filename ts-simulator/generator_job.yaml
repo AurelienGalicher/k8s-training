@@ -1,0 +1,24 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: generator-job
+  labels:
+    role: ts-simulator
+  #namespace: kafka
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: generator-job
+      labels:
+        role: ts-simulator
+    spec:
+      containers:
+      - name: generator-job
+        image: jupyter/scipy-notebook
+        command:
+          - "/bin/bash"
+          - "-c"
+          - "pip install pymongo && pip install kafka-python && git clone https://github.com/AurelienGalicher/my-ml-prod-kit.git && cd my-ml-prod-kit/pyscripts && ipython lin_reg_generator.py kafka:9092 mltest"
+
+      restartPolicy: Always

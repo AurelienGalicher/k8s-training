@@ -3,7 +3,7 @@ MAINTAINER galicher@gmail.com
 
 # Install Kibana plugins
 RUN /usr/share/logstash/bin/logstash-plugin install logstash-input-kafka
-RUN /logstash-plugin install logstash-filter-json && /usr/share/logstash/bin/logstash
+RUN /usr/share/logstash/bin/logstash-plugin install logstash-filter-json
 
 # Mount volume to get config files
 VOLUME ["/lostash/config"]
