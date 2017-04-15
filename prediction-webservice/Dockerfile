@@ -5,7 +5,7 @@ MAINTAINER galicher@gmail.com
 RUN pip install pymongo
 
 # Install flaskapp
-COPY ../src/* /flaskapp
+COPY -R src/* /flaskapp
 RUN pip install -e /flaskapp
 
 ENV FLASK_APP=flaskr
