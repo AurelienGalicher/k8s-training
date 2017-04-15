@@ -6,7 +6,7 @@ metadata:
 spec:
   template:
     metadata:
-      name: topic-create-test2
+      name: topic-create-mltest
     spec:
       containers:
       - name: kafka
