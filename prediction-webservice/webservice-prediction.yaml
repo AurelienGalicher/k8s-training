@@ -2,6 +2,8 @@ apiVersion: v1
 kind: Service
 metadata:
   name: prediction
+  labels:
+    app: prediction
 spec:
   ports:
     - port: 80
@@ -10,8 +12,8 @@ spec:
   selector:
     app: prediction
 ---
-apiVersion: v1
-kind: ReplicationController
+apiVersion: extensions/v1beta1
+kind: Deployment
 metadata:
   name: prediction
   labels:
@@ -19,9 +21,6 @@ metadata:
     version: v0
 spec:
   replicas: 3
-  selector:
-    app: prediction
-    version: v0
   template:
     metadata:
       labels:
@@ -30,7 +29,7 @@ spec:
     spec:
       containers:
       - name: prediction
-        image: jupyter/scipy-notebook
+        image: gcr.io/my-ml-prod-env/webserviceapp:0
         env:
           - name: FLASK_APP
             value: "flaskr"
@@ -38,7 +37,7 @@ spec:
         - containerPort: 5000
           name: flask
           protocol: TCP
-        command: 
-          - "/bin/bash"
-          - "-c"
-          - "pip install pymongo && pip install kafka-python && git clone https://github.com/AurelienGalicher/my-ml-prod-kit.git && cd my-ml-prod-kit/webservice && pip install -e . && flask run"
+        #command:
+        #  - "/bin/bash"
+        #  - "-c"
+        #  - "pip install pymongo && pip install kafka-python && git clone https://github.com/AurelienGalicher/my-ml-prod-kit.git && cd my-ml-prod-kit/webservice && pip install -e . && flask run"
