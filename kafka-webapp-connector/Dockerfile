@@ -2,7 +2,7 @@ FROM python:3
 MAINTAINER galicher@gmail.com
 
 # copy app src
-ADD src/stream-predictor.py /python_app/app.py
+ADD src/stream-predict.py /python_app/app.py
 
 # Install requirements
 RUN apt-get update
