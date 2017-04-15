@@ -1,4 +1,4 @@
-FROM python:alpine
+FROM python:3
 MAINTAINER galicher@gmail.com
 
 # Install mongo
