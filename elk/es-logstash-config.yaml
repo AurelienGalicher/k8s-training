@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: logstash-config
+data:
+  logstash.conf: |-
+    input {
+      kafka {
+        bootstrap_servers => "kafka:9092"
+        topics => ["mltest"]
+      }
+    }
+    filter {
+      json {
+        source => "message"
+      }
+    }
+    output {
+      elasticsearch {
+        hosts => ["elasticsearch:9200"]
+      }
+    }
+  
