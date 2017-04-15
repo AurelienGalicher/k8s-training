@@ -1,0 +1,24 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: train-model
+  #namespace: kafka
+spec:
+  template:
+    metadata:
+      name: train-model
+    spec:
+      containers:
+      - name: train-job
+        image: gcr.io/my-ml-prod-env/trainingjob:0
+        #jupyter/scipy-notebook
+        args:
+          - 10
+          - ridgecv
+          - 0
+        #command:
+        #  - "/bin/bash"
+        #  - "-c"
+        #  - "pip install pymongo && pip install kafka-python && git clone https://github.com/AurelienGalicher/my-ml-prod-kit.git && cd my-ml-prod-kit/pyscripts && ipython model_training.py 10 ridgecv 0"
+
+      restartPolicy: Never
