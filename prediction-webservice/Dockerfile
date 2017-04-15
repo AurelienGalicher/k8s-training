@@ -2,6 +2,9 @@ FROM python:alpine
 MAINTAINER galicher@gmail.com
 
 # Install mongo
+RUN apt-get update
+RUN apt-get install -y libblas-dev liblapack-dev liblapacke-dev gfortran
+RUN pip install --upgrade pip
 RUN pip install pymongo
 RUN pip install pandas
 
