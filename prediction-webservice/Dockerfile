@@ -6,7 +6,7 @@ RUN pip install pymongo
 
 # Install flaskapp
 COPY src/* /flaskapp
-RUN pip install -e /flaskapp
+RUN pip install -e /flaskapp/
 
 ENV FLASK_APP=flaskr
 EXPOSE 5000
