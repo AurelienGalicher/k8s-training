@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
       - name: prediction
-        image: gcr.io/my-ml-prod-env/webserviceapp:0
+        image: gcr.io/my-ml-prod-env/webservice:0
         env:
           - name: FLASK_APP
             value: "flaskr"
