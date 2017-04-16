@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: stream-predictor
-        image: gcr.io/my-ml-prod-env/kafka-webapp-connect:0
+        image: gcr.io/my-ml-prod-env/kafka-webapp-connector:0
         args:
           - mltest
           - ridgecv
