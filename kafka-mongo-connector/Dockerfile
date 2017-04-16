@@ -12,5 +12,5 @@ RUN pip install python-dateutil
 
 
 # Entrypoint
-ENTRYPOINT ["ipython", "/python_app/app.py"]
+ENTRYPOINT ["python", "/python_app/app.py"]
 

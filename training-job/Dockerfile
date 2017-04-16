@@ -17,5 +17,5 @@ RUN pip install requests
 
 
 # Entrypoint
-ENTRYPOINT ["ipython", "/python_app/app.py"]
+ENTRYPOINT ["python", "/python_app/app.py"]
 

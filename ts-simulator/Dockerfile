@@ -17,5 +17,5 @@ RUN pip install kafka-python
 
 
 # Entrypoint
-ENTRYPOINT ["ipython", "/python_app/app.py"]
+ENTRYPOINT ["python", "/python_app/app.py"]
 
