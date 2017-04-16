@@ -1,5 +1,5 @@
 #FROM python:3
-FROM gcr.io/my-ml-prod-env/ts-simulator/
+FROM gcr.io/my-ml-prod-env/ts-simulator:latest
 MAINTAINER galicher@gmail.com
 
 # copy app src
