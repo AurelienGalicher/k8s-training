@@ -1,11 +1,12 @@
-FROM python:3
+#FROM python:3
+FROM gcr.io/my-ml-prod-env/ts-simulator:latest
 MAINTAINER galicher@gmail.com
 
 # Install mongo
-RUN apt-get update
-RUN apt-get install -y libblas-dev liblapack-dev liblapacke-dev gfortran
-RUN pip install --upgrade pip
-RUN pip install pymongo
+#RUN apt-get update
+#RUN apt-get install -y libblas-dev liblapack-dev liblapacke-dev gfortran
+#RUN pip install --upgrade pip
+#RUN pip install pymongo
 RUN pip install pandas
 
 # Install flaskapp
