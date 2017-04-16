@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: jupyter-notebook
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 8888
+      protocol: TCP
+  selector:
+    app: jupyter-notebook
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: jupyter-notebook
+spec:
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: jupyter-notebook
+    spec:
+      containers:
+      - image: jupyter/pyspark-notebook
+        #gcr.io/docker-161916/jupyter-igraph:latest
+        #jupyter/scipy-notebook
+        #gcr.io/docker-161916/jupyter-igraph:latest
+        name: jupyter-notebook
+        ports:
+        - containerPort: 8888
