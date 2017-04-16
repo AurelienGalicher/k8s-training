@@ -1,0 +1,39 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: test-kafka-mongo-connector
+  labels:
+    app: test-kafka-mongo-connector
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: test-kafka-mongo-connector
+      labels:
+        app: test-kafka-mongo-connector
+    spec:
+      containers:
+      - name: test-kafka-mongo-connector
+        image: gcr.io/my-ml-prod-env/kafka-mongo-connect:0
+        command:
+          - /bin/bash
+        args:
+          - "-c"
+          - |-
+            c=1
+            while [ true ]
+            do
+              echo "Welcone $c times"
+              (( c++ ))
+            done
+
+        #args:
+        #  - kafka:9092
+        #  - mltest
+        #  - mongodb://mongo:27017
+        #  - rs0
+        #jupyter/scipy-notebook
+        #command:
+        #  - "/bin/bash"
+        #  - "-c"
+        #  - "pip install pymongo && pip install kafka-python && git clone https://github.com/AurelienGalicher/my-ml-prod-kit.git && cd my-ml-prod-kit/pyscripts && ipython kafka_mongo_connector.py kafka:9092 mltest mongodb://mongo:27017 rs0"
