@@ -19,7 +19,7 @@ spec:
         args:
           - mltest
           - ridgecv
-          - 0
+          - "0"
         #jupyter/scipy-notebook
         #command:
         #  - "/bin/bash"
