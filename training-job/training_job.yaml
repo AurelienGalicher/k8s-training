@@ -9,16 +9,11 @@ spec:
       name: train-model
     spec:
       containers:
-      - name: train-job
+      - name: train-model
         image: gcr.io/my-ml-prod-env/training-job:0
         #jupyter/scipy-notebook
         args:
-          - 10
+          - "10"
           - ridgecv
-          - 0
-        #command:
-        #  - "/bin/bash"
-        #  - "-c"
-        #  - "pip install pymongo && pip install kafka-python && git clone https://github.com/AurelienGalicher/my-ml-prod-kit.git && cd my-ml-prod-kit/pyscripts && ipython model_training.py 10 ridgecv 0"
-
+          - "0"
       restartPolicy: Never
