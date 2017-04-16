@@ -25,6 +25,7 @@ def connect_db():
     if COLLECTION_NAME in mongo[DATABASE_NAME].collection_names():
         collection = mongo[DATABASE_NAME][COLLECTION_NAME]
     else:
+        mongo[DATABASE_NAME].create_collection(COLLECTION_NAME)
         collection = mongo[DATABASE_NAME][COLLECTION_NAME]
         collection.createIndex( { "timestamp": 1 }, { 'unique': True } )
     return collection
