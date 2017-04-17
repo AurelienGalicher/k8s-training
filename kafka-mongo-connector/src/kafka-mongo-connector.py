@@ -22,12 +22,12 @@ GROUP_ID = "kafka_mongo_connector_consumer"
 def connect_db():
     """Connects to the specific database."""
     mongo = MongoClient(DATABASE_URL,replicaset=MONGO_REPLICASET)
-    if COLLECTION_NAME in mongo[DATABASE_NAME].collection_names():
-        collection = mongo[DATABASE_NAME][COLLECTION_NAME]
-    else:
-        mongo[DATABASE_NAME].create_collection(COLLECTION_NAME)
-        collection = mongo[DATABASE_NAME][COLLECTION_NAME]
-        collection.createIndex( { "timestamp": 1 }, { 'unique': True } )
+    #if COLLECTION_NAME in mongo[DATABASE_NAME].collection_names():
+    collection = mongo[DATABASE_NAME][COLLECTION_NAME]
+    #else:
+    #    mongo[DATABASE_NAME].create_collection(COLLECTION_NAME)
+    #    collection = mongo[DATABASE_NAME][COLLECTION_NAME]
+    #    collection.createIndex( { "timestamp": 1 }, { 'unique': True } )
     return collection
 
 def connect_kafka():
