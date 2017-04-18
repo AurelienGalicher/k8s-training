@@ -30,8 +30,10 @@ def connect_kafka():
 def predict(msg, write_client, model_name, version):
     if msg.key.decode('UTF-8') == 'features':
         data = json.loads(msg.value.decode('UTF-8'))
-        timestamp = data['timestamp']
-        #feats = { key: data[key] for key in data.keys() if key.startswith('feat')}
+        
+        #timestamp = data['timestamp']
+        #feats = [ key for key in data.keys() if key.startswith('feat')]
+        
         connection_url = PREDICTION_SERVICE+model_name+'/'+str(version)+'/'
         print (connection_url)
         r = requests.post(connection_url, {'data': json.dumps([data], default=json_util.default)})

@@ -28,6 +28,20 @@ def train_model(df):
     score = model.score(X,y)
     return model, score
 
+def get_last_version(model_name):
+    pipeline =[{"$match":{"metadata.modelname": model_name}}
+              ,{"$group":
+                    {"model_name" : "$metadata.model_name",
+                     "lastVersion": { "$max": {"$metadata.version" } } }
+               }]
+    files = mongo.mldb.models.files
+    res = files.aggregate(pipeline) 
+    try:
+        version = res[0]['lastVersion']
+    except:
+        version = -1
+    return version
+
 if __name__ == "__main__":
     if len(sys.argv) != 4:
         print("Usage: model_traing.py <period in min> <model_name> <version>", file=sys.stderr)
@@ -35,11 +49,16 @@ if __name__ == "__main__":
 
     period, model_name, version = sys.argv[1:]
     period= int(period)
-    version = int(version)
+    if version == 'latest':
+        version = max(0, get_last_version(model_name))
+    else:
+        version = int(version)
     end = datetime.datetime.now()
     start = end - datetime.timedelta(minutes=period)
     df = retrieve_training_dataset(ts, start, end).dropna()
-    model, score = train_model(df)
+    # restricting the schema
+    feat_cols = list(filter(lambda x: x.startswith('feat_'),df.columns))
+    model, score = train_model(df[feat_cols])
     print ("r^2 score: %s" % score)
     register_model(model, model_name=model_name, version=version, score=score, description="ridgeCV %s" % end.isoformat())
 

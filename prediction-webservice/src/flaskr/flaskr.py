@@ -69,6 +69,21 @@ def get_model(model_name, version):
     else:
         return None
 
+def get_last_version(model_name):
+    pipeline =[{"$match":{"metadata.modelname": model_name}}
+              ,{"$group":
+                    {"model_name" : "$metadata.model_name",
+                     "lastVersion": { "$max": {"$metadata.version" } } }
+               }]
+    mongo = get_db()
+    files = mongo[app.config['DATABASE_NAME']][app.config['COLLECTION_NAME']].files
+    res = files.aggregate(pipeline) 
+    try:
+        version = res[0]['lastVersion']
+    except:
+        version = -1
+    return version
+
 @app.teardown_appcontext
 def close_db(error):
     """Closes the database again at the end of the request."""
@@ -110,5 +125,12 @@ def predict(model_name,version):
     print(res)
     #app.log(data)
     return json.dumps(res, default=json_util.default)
+
+@app.route("/predictLatest/<string:model_name>",methods=['POST'])
+def predictLatest(model_name):
+      #    g['%s_%s' % (model,version)] = model
+    version = get_last_version(model_name)
+    return predict(model_name,version)
+   
       
 app.run(host='0.0.0.0', debug=True)
