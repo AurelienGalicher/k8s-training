@@ -8,8 +8,15 @@ the architecture involves:
 *item an elasticsearch-logstah-kibana cluster (to visualize kafka streams)
 *item a mongodb cluster (to store datapoints adn provide training)
 *item a webservice build on top of flask (REST-API to our ml algorithm)
-*item various connectors to stream data between the various component
+*item various connectors to stream data between the various components
 ##
-'''
+'''shell
+
 kubectl create -f google-storage/
+kubectl create -f zookeeper/
+kubectl create -f kafka/
+kubectl create -f mongo/
+kubectl create -f elk/
+kubectl create -f ts-simulator/
+
 '''
