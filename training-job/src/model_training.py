@@ -29,15 +29,10 @@ def train_model(df):
     return model, score
 
 def get_last_version(model_name):
-    pipeline =[{"$match":{"metadata.modelname": model_name}}
-              ,{"$group":
-                    {"model_name" : "$metadata.model_name",
-                     "lastVersion": { "$max": {"$metadata.version" } } }
-               }]
-    files = mongo.mldb.models.files
-    res = files.aggregate(pipeline) 
+    files = mongo.modeldb.models.files
+    res = mongo.modeldb.models.files.find({"model_name":model_name}).sort("version",-1).limit(1)
     try:
-        version = res[0]['lastVersion']
+        version = res.next()['version']
     except:
         version = -1
     return version
@@ -50,7 +45,7 @@ if __name__ == "__main__":
     period, model_name, version = sys.argv[1:]
     period= int(period)
     if version == 'latest':
-        version = max(0, get_last_version(model_name))
+        version = get_last_version(model_name) + 1
     else:
         version = int(version)
     end = datetime.datetime.now()

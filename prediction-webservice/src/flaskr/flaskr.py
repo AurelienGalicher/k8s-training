@@ -70,16 +70,12 @@ def get_model(model_name, version):
         return None
 
 def get_last_version(model_name):
-    pipeline =[{"$match":{"metadata.modelname": model_name}}
-              ,{"$group":
-                    {"model_name" : "$metadata.model_name",
-                     "lastVersion": { "$max": {"$metadata.version" } } }
-               }]
     mongo = get_db()
-    files = mongo[app.config['DATABASE_NAME']][app.config['COLLECTION_NAME']].files
-    res = files.aggregate(pipeline) 
+    files = mongo.modeldb.models.files
+    res = mongo[app.config['DATABASE_NAME']][app.config['COLLECTION_NAME']]\
+                .files.find({"model_name":model_name}).sort("version",-1).limit(1)
     try:
-        version = res[0]['lastVersion']
+        version = res.next()['version']
     except:
         version = -1
     return version
