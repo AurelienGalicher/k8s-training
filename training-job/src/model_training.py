@@ -57,8 +57,9 @@ if __name__ == "__main__":
     start = end - datetime.timedelta(minutes=period)
     df = retrieve_training_dataset(ts, start, end).dropna()
     # restricting the schema
-    feat_cols = list(filter(lambda x: x.startswith('feat_'),df.columns))
-    model, score = train_model(df[feat_cols])
+    cols = list(filter(lambda x: x.startswith('feat_') or x.startswith('target'),df.columns))
+    #feat_cols.append('target')
+    model, score = train_model(df[cols])
     print ("r^2 score: %s" % score)
     register_model(model, model_name=model_name, version=version, score=score, description="ridgeCV %s" % end.isoformat())
 
