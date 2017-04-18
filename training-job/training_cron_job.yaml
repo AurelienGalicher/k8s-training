@@ -3,16 +3,16 @@ kind: CronJob
 metadata:
   name: train-model-cron
 spec:
-  schedule: "*/3 * * * *"
+  schedule: "*/1 * * * *"
   jobTemplate:
     spec:
-    	template:
-    		spec:
-      			containers:
-      			- name: train-model
-        		  image: gcr.io/my-ml-prod-env/training-job:2
-        		  args:
-          			- "5"
-          			- ridgecv
-          			- latest
-          		  restartPolicy: OnFailure
+      template:
+        spec:
+          containers:
+          - name: train-model-cron
+            image: gcr.io/my-ml-prod-env/training-job:2
+            args:
+            - "5"
+            - ridgecv
+            - latest
+          restartPolicy: OnFailure
