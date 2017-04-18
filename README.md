@@ -10,7 +10,7 @@ the architecture involves:
 *item a webservice build on top of flask (REST-API to our ml algorithm)
 *item various connectors to stream data between the various components
 ##
-'''shell
+```shell
 
 kubectl create -f google-storage/
 kubectl create -f zookeeper/
@@ -19,4 +19,4 @@ kubectl create -f mongo/
 kubectl create -f elk/
 kubectl create -f ts-simulator/
 
-'''
+```
