@@ -51,7 +51,6 @@ if __name__ == "__main__":
         sys.exit(-1)
 
     TOPIC, MODEL_NAME, VERSION= sys.argv[1:]
-    VERSION= int(VERSION)
 
     read_client, write_client = connect_kafka()
     

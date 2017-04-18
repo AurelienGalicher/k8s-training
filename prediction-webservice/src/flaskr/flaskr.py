@@ -122,7 +122,7 @@ def predict(model_name,version):
     #app.log(data)
     return json.dumps(res, default=json_util.default)
 
-@app.route("/predictLatest/<string:model_name>",methods=['POST'])
+@app.route("/predict/<string:model_name>/latest/",methods=['POST'])
 def predictLatest(model_name):
       #    g['%s_%s' % (model,version)] = model
     version = get_last_version(model_name)
