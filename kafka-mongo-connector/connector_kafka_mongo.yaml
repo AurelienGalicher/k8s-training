@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: kafka-mongo-connector
-        image: gcr.io/my-ml-prod-env/kafka-mongo-connector:0
+        image: gcr.io/my-ml-prod-env/kafka-mongo-connector:2
         args:
           - kafka:9092
           - mltest

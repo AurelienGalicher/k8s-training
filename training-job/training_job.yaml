@@ -10,7 +10,7 @@ spec:
     spec:
       containers:
       - name: train-model
-        image: gcr.io/my-ml-prod-env/training-job:0
+        image: gcr.io/my-ml-prod-env/training-job:1
         #jupyter/scipy-notebook
         args:
           - "10"

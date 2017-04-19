@@ -21,7 +21,7 @@ data:
       }
       kafka {
         bootstrap_servers => "kafka:9092"
-        topics => ["mlscore"]
+        topic_id => "mlscore"
       }
     }
   
