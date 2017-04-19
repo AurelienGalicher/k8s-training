@@ -1,0 +1,25 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: topic-create-mlscore
+  #namespace: kafka
+spec:
+  template:
+    metadata:
+      name: topic-create-mlscore
+    spec:
+      containers:
+      - name: kafka
+        image: solsson/kafka:0.10.0.1
+        command:
+        - ./bin/kafka-topics.sh
+        - --zookeeper
+        - zookeeper:2181
+        - --create
+        - --topic
+        - mlscore
+        - --partitions
+        - "5"
+        - --replication-factor
+        - "2"
+      restartPolicy: Never
