@@ -117,6 +117,8 @@ def predict(model_name,version):
     prediction = model.predict(df)
     res = pd.DataFrame(prediction, index=df.index, columns=['prediction']).reset_index()
     res.columns = ['timestamp','prediction']
+    res['version'] = version
+    res['model'] = model_name
     res = list(res.T.to_dict().values())
     print(res)
     #app.log(data)

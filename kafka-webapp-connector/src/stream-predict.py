@@ -40,7 +40,7 @@ def predict(msg, write_client, model_name, version):
         print (r.text)
         prediction = json.loads(r.text)
         for pred in prediction:
-            pred.update({'model':model_name,'version':version})
+            #pred.update({'model':model_name,'version':version})
             write_client.send(topic=TOPIC,value=json.dumps(pred).encode(encoding='UTF-8'),key=b'prediction')
             print (pred)
     return

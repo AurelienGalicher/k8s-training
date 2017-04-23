@@ -4,12 +4,22 @@ from pymongo import MongoClient
 import gridfs
 import pandas as pd
 from sklearn.linear_model import RidgeCV
+from sklearn.metrics import r2_score
 import sys
 import datetime 
 
 mongo = MongoClient("mongodb://mongo:27017",replicaset="rs0")
 fs = gridfs.GridFS(mongo.modeldb, collection="models")
 ts = mongo.mldb.ts
+
+KAFKA_BROKER = "kafka:9092"
+TOPIC = "mltest"
+GROUP_ID = "kafka_r2score"
+
+
+def connect_kafka():
+    write_client = KafkaProducer(bootstrap_servers=KAFKA_BROKER)
+    return write_client
 
 def register_model(sk_model, model_name="", version=0, description="",score=None ):
     pickle.dump(sk_model,open('save.p','wb'))
@@ -18,7 +28,7 @@ def register_model(sk_model, model_name="", version=0, description="",score=None
 
 def retrieve_training_dataset(ts, start, end):
     data = [doc for doc in ts.find( {'time': {'$lt': end, '$gte': start}})]
-    df = pd.DataFrame(data).drop('_id', axis=1).drop('time', axis=1).set_index('timestamp')
+    df = pd.DataFrame(data)
     return df
 
 def train_model(df):
@@ -42,19 +52,15 @@ if __name__ == "__main__":
         print("Usage: model_traing.py <period in min> <model_name> <version>", file=sys.stderr)
         sys.exit(-1)
 
-    period, model_name, version = sys.argv[1:]
-    period= int(period)
-    if version == 'latest':
-        version = get_last_version(model_name) + 1
-    else:
-        version = int(version)
+    write_client = connect_kafka()
+   
     end = datetime.datetime.now()
     start = end - datetime.timedelta(minutes=period)
     df = retrieve_training_dataset(ts, start, end)
-    cols = list(filter(lambda x: x.startswith('feat_') or x.startswith('target'),df.columns))
+    cols = ['target','prediction','time','timestamp']
     df = df[cols].dropna()
-    model, score = train_model(df)
-    print ("r^2 score: %s" % score)
-    register_model(model, model_name=model_name, version=version, score=score, description="ridgeCV %s" % end.isoformat())
-
+    score = r2_score(df.target,df.prediction)
+    timestp = df.sort('time', ascending=False).timestamp.ix[0]
+    record = {'timestamp':timestp, score:'score'}
+    write_client.send(topic=TOPIC,value=json.dumps(record).encode(encoding='UTF-8'),key=b'score')
     
