@@ -17,7 +17,7 @@ DEBUG=True
 KAFKA_BROKER = "kafka:9092"
 TOPIC = "mltest"
 WRITE_TOPIC = "mlscore"
-GROUP_ID = "scorer"
+GROUP_ID = "scorer_consumer"
 
 def connect_db():
     """Connects to the specific database."""
@@ -34,8 +34,9 @@ def process_msg(msg, mongo_col, writer):
     data = json.loads(msg.value.decode('UTF-8'))
     key = msg.key.decode('UTF-8')
     print (key)
+    record = None
     try:
-        timestamp = data['timestamp']
+        timestamp = data['timestamp']    
         if key == "prediction":
             res = mongo_col.find_one({"timestamp": timestamp})
             error = res['target'] - res['prediction']
