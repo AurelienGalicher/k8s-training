@@ -3,7 +3,7 @@ FROM gcr.io/my-ml-prod-env/ts-simulator:latest
 MAINTAINER galicher@gmail.com
 
 # copy app src
-ADD src/kafka-mongo-connector-with-error-tracking /python_app/app.py
+ADD src/send-error.py /python_app/app.py
 
 # Install requirements
 #RUN apt-get update

@@ -9,8 +9,8 @@ spec:
       name: perf-track
     spec:
       containers:
-      - name: pref-tack
-        image: gcr.io/my-ml-prod-env/training-job:0
+      - name: pref-track
+        image: gcr.io/my-ml-prod-env/perf-tracking:0
         #jupyter/scipy-notebook
         args:
           - "10"

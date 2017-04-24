@@ -3,7 +3,6 @@ from __future__ import print_function
 from kafka import KafkaConsumer, KafkaProducer
 from pymongo import MongoClient
 import json
-from dateutil import parser
 import sys
 
   
@@ -17,39 +16,38 @@ DEBUG=True
 
 KAFKA_BROKER = "kafka:9092"
 TOPIC = "mltest"
+WRITE_TOPIC = "mlscore"
 GROUP_ID = "kafka_mongo_connector_consumer"
 
 def connect_db():
     """Connects to the specific database."""
     mongo = MongoClient(DATABASE_URL,replicaset=MONGO_REPLICASET)
-    #if COLLECTION_NAME in mongo[DATABASE_NAME].collection_names():
     collection = mongo[DATABASE_NAME][COLLECTION_NAME]
-    #else:
-    #    mongo[DATABASE_NAME].create_collection(COLLECTION_NAME)
-    #    collection = mongo[DATABASE_NAME][COLLECTION_NAME]
-    #    collection.createIndex( { "timestamp": 1 }, { 'unique': True } )
     return collection
 
 def connect_kafka():
     client = KafkaConsumer(TOPIC, group_id=GROUP_ID, bootstrap_servers=KAFKA_BROKER)
     writer = KafkaProducer(bootstrap_servers=KAFKA_BROKER)
-    return client
+    return client, writer
 
-def read_write_to_mongo(msg, mongo_col, writer):
+def process_msg(msg, mongo_col, writer):
     data = json.loads(msg.value.decode('UTF-8'))
     key = json.loads(msg.key.decode('UTF-8'))
     try:
         timestamp = data['timestamp']
-        data.update({'time': parser.parse(data['timestamp'])})
-        res = mongo_col.update_one({'timestamp':timestamp},
-                             {'$set':data }, upsert=True)
         if key == "prediction":
             res = mongo_col.find_one({"timestamp": timestamp})
             error = res['target'] - res['prediction']
-            writer.send(topic=TOPIC,value=json.dumps({'timestamp':timestamp, 'error':error}).encode(encoding='UTF-8'),key=b'error')
+            record = {'timestamp':timestamp, 
+                                           'error':error,
+                                          'ypred_':res['prediction'],
+                                          'ytrue_':res['target']}
+            writer.send(topic=WRITE_TOPIC,
+                        value=json.dumps(record)\
+                                  .encode(encoding='UTF-8'),key=b'error')
     except:
-        res = "error no timestamp found in message"
-    return res
+        record = "error no timestamp found in message"
+    return record
         
 if __name__ == "__main__":
     if len(sys.argv) != 5:
@@ -64,7 +62,7 @@ if __name__ == "__main__":
     client, writer = connect_kafka()
     mongo_col = connect_db()
     for msg in client:
-        res = read_write_to_mongo(msg, mongo_col, writer)
+        res = process_msg(msg, mongo_col, writer)
         print (res)
     #except:
     #    print ("error")
