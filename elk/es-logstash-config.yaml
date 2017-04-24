@@ -7,7 +7,7 @@ data:
     input {
       kafka {
         bootstrap_servers => "kafka:9092"
-        topics => ["mltest","mlscore"]
+        topics => ["mltest"]
       }
     }
     filter {
@@ -19,9 +19,9 @@ data:
       elasticsearch {
         hosts => ["elasticsearch:9200"]
       }
-      kafka {
-        bootstrap_servers => "kafka:9092"
-        topic_id => "mlscore"
-      }
+      #kafka {
+      #  bootstrap_servers => "kafka:9092"
+      #  topic_id => "mlscore"
+      #}
     }
   
