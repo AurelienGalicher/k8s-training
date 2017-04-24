@@ -17,7 +17,7 @@ DEBUG=True
 KAFKA_BROKER = "kafka:9092"
 TOPIC = "mltest"
 WRITE_TOPIC = "mlscore"
-GROUP_ID = "kafka_mongo_connector_consumer"
+GROUP_ID = "scorer"
 
 def connect_db():
     """Connects to the specific database."""
