@@ -15,7 +15,7 @@ ADD src/send-error.py /python_app/app.py
 #RUN pip install pymongo
 #RUN pip install kafka-python
 #RUN pip install requests
-RUN pip install pandas
+#RUN pip install pandas
 
 
 # Entrypoint
