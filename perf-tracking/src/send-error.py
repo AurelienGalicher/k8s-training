@@ -32,7 +32,7 @@ def connect_kafka():
 
 def process_msg(msg, mongo_col, writer):
     data = json.loads(msg.value.decode('UTF-8'))
-    key = json.loads(msg.key.decode('UTF-8'))
+    key = msg.key.decode('UTF-8')
     try:
         timestamp = data['timestamp']
         if key == "prediction":
