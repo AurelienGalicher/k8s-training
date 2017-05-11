@@ -29,10 +29,39 @@ kubectl create -f mongo/
 we then create an elasticsearch cluster + and logstash and kibana instances
 ```shell
 kubectl create -f elk/
-kubectl create -f elk/logstash/
-kubectl create -f elk/kibana/
 ```
-we start generating "random timeseries" using a custom python script
+
+we start create topics in our kafka pub-sub queue
 ```shell
-kubectl create -f tssimulator/
+kubectl create -f kafka-topics/
 ```
+
+we start send "random timeseries" to our kafka queue using a custom python script
+```shell
+kubectl create -f ts-simulator/
+```
+
+we connect to our kafka queue to mongodb 
+```shell
+kubectl create -f kafka-mongo-connector/
+```
+
+we build a webservice to support our ml algorithm
+```shell
+kubectl create -f prediction-webservice/
+```
+
+we train our ml model on data collected on our mongo cluster
+```shell
+kubectl create -f training-job/
+```
+we connect our web-service to the kafka feed
+```shell
+kubectl create -f kafka-webapp-connector/
+```
+
+we now can connect to kibana to monitor our projects.
+```shell
+kubectl get svc kibana
+```
+get the public ip address of the kibana service and open our favorite browser
