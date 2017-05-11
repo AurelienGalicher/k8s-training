@@ -64,4 +64,9 @@ we now can connect to kibana to monitor our projects.
 ```shell
 kubectl get svc kibana
 ```
-get the public ip address of the kibana service and open our favorite browser
+get the public ip address of the kibana service and open our favorite browser.
+You can for example monitor the average squared error over a timeframe of 30 seconds using timelion using this request:
+```
+.es(metric=avg:target).subtract(.es(metric=avg:prediction)).multiply(.es(metric=avg:target).subtract(.es(metric=avg:prediction))).movingaverage(30)
+```
+
