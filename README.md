@@ -6,13 +6,17 @@ Using kubernetes and docker, we will set up a small streaming infrastructure tha
 the architecture involves:
 <li> a kafka pub-sub cluster </li>
 <li> an elasticsearch-logstah-kibana cluster (to visualize kafka streams) </li>
-*item a mongodb cluster (to store datapoints adn provide training)
-*item a webservice build on top of flask (REST-API to our ml algorithm)
-*item various connectors to stream data between the various components
+<li> a mongodb cluster (to store datapoints adn provide training) </li>
+<li> a webservice build on top of flask (REST-API to our ml algorithm)</li>
+<li> various connectors to stream data between the various components </li>
 ##
-```shell
 
+we first create storage 
+```shell
 kubectl create -f google-storage/
+```
+
+```shell
 kubectl create -f zookeeper/
 kubectl create -f kafka/
 kubectl create -f mongo/
