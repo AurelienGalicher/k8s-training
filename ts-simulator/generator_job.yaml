@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: generator-job
-        image: gcr.io/my-ml-prod-env/ts-simulator:0
+        image: mykafkaconnectregistry.azurecr.io/ts-simulator:0
         args:
           - kafka:9092
           - mltest
