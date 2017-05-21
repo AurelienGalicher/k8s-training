@@ -17,3 +17,5 @@ spec:
             - ridgecv
             - latest
           restartPolicy: OnFailure
+          imagePullSecrets:
+          - name: myregistrykey
