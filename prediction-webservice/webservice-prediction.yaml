@@ -38,8 +38,8 @@ spec:
         - containerPort: 5000
           name: flask
           protocol: TCP
-        imagePullSecrets:
-        - name: myregistrykey
+      imagePullSecrets:
+      - name: myregistrykey
         #command:
         #  - "/bin/bash"
         #  - "-c"
