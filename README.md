@@ -70,3 +70,13 @@ You can for example monitor the average squared error over a timeframe of 30 sec
 .es(metric=avg:target).subtract(.es(metric=avg:prediction)).multiply(.es(metric=avg:target).subtract(.es(metric=avg:prediction))).movingaverage(30)
 ```
 
+on azure, register the secrets to pull docker images from your private registry:
+```shell
+kubectl create secret docker-registry myregistrykey --docker-server=https://myregistry.azurecr.io --docker-username=ACR_USERNAME --docker-password=ACR_PASSWORD --docker-email=ANY_EMAIL_ADDRESS
+```
+
+add in your container specs:
+```shell
+imagePullSecrets:
+        - name: myregistrykey
+```
