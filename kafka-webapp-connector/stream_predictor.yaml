@@ -20,6 +20,8 @@ spec:
           - mltest
           - ridgecv
           - "0"
+        imagePullSecrets:
+        - name: myregistrykey
         #jupyter/scipy-notebook
         #command:
         #  - "/bin/bash"
