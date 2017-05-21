@@ -1,5 +1,6 @@
 #FROM python:3
-FROM gcr.io/my-ml-prod-env/ts-simulator:latest
+FROM mykafkaconnectregistry.azurecr.io/ts-simulator:0
+#gcr.io/my-ml-prod-env/ts-simulator:latest
 MAINTAINER galicher@gmail.com
 
 # Install mongo
