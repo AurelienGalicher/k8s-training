@@ -14,7 +14,8 @@ spec:
     spec:
       containers:
       - name: perf-tracking
-        image: gcr.io/my-ml-prod-env/perf-tracking:0
+        image: mykafkaconnectregistry.azurecr.io/perf-tracking:0
+        #gcr.io/my-ml-prod-env/perf-tracking:0
         args:
           - kafka:9092
           - mltest
