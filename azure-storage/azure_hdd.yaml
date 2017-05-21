@@ -6,4 +6,4 @@ provisioner: kubernetes.io/azure-disk
 parameters:
   skuName: Standard_LRS
   location: northeurope
-  storageAccount: kafkaconnectstore
+  #storageAccount: kafkaconnectstore
