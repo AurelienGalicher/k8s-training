@@ -4,6 +4,6 @@ metadata:
   name: slow
 provisioner: kubernetes.io/azure-disk
 parameters:
-  skuName: Standard_LRS
-  location: northeurope
-  #storageAccount: kafkaconnectstore
+  #skuName: Standard_LRS
+  #location: northeurope
+  storageAccount: kafkaconnectstore
