@@ -20,7 +20,8 @@ spec:
       serviceAccount: elk
       containers:
       - name: logstash
-        image: gcr.io/my-ml-prod-env/logstash:5.2.2_2
+        image: mykafkaconnectregistry.azurecr.io/logstash:5.2.2
+        #gcr.io/my-ml-prod-env/logstash:5.2.2_2
         #logstash:5.2.2
         #command:
         #  - "/bin/bash"
