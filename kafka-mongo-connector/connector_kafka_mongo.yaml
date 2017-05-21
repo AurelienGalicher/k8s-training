@@ -21,6 +21,8 @@ spec:
           - mltest
           - mongodb://mongo:27017
           - rs0
+        imagePullSecrets:
+        - name: myregistrykey
         #jupyter/scipy-notebook
         #command:
         #  - "/bin/bash"
