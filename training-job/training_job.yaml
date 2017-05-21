@@ -17,4 +17,6 @@ spec:
           - "10"
           - ridgecv
           - latest
+        imagePullSecrets:
+        - name: myregistrykey
       restartPolicy: Never
