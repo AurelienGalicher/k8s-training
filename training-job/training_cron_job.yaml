@@ -10,7 +10,8 @@ spec:
         spec:
           containers:
           - name: train-model-cron
-            image: gcr.io/my-ml-prod-env/training-job:0
+            image: mykafkaconnectregistry.azurecr.io/training-job:0
+            #gcr.io/my-ml-prod-env/training-job:0
             args:
             - "5"
             - ridgecv
