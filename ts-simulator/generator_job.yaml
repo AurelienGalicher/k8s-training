@@ -19,8 +19,8 @@ spec:
         args:
           - kafka:9092
           - mltest
-        imagePullSecrets:
-          - name: myregistrykey
+      imagePullSecrets:
+      - name: myregistrykey
         #jupyter/scipy-notebook
         #command:
         #  - "/bin/bash"
