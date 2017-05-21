@@ -30,6 +30,8 @@ spec:
         volumeMounts:
           - name: config-volume
             mountPath: /logstash/config
+        imagePullSecrets:
+        - name: myregistrykey
       volumes:
         - name: config-volume
           configMap:
