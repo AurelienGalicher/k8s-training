@@ -24,7 +24,7 @@ we first create storage class to dynamically provision storage on GCP
 ```shell
 kubectl create -f google-storage/
 ```
-we then a kafka cluster (and a zookeeper cluster)
+we then create a kafka cluster (and a zookeeper cluster)
 ```shell
 kubectl create -f zookeeper/
 kubectl create -f kafka/
