@@ -10,6 +10,10 @@ the architecture involves:
 <li> a webservice build on top of flask (REST-API for our ml algorithm)</li>
 <li> various connectors to stream data between the various components </li>
 
+## Functional architecture
+
+![alt text](https://github.com/AurelienGalicher/k8s-training/raw/master/img/ArchiFuncML.png "")
+
 ## Instructions
 
 we first create storage class to dynamically provision storage on GCP 
