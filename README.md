@@ -16,7 +16,7 @@ the architecture involves:
 
 ## Kubernetes architecture
 
-![alt text](https://github.com/AurelienGalicher/k8s-training/raw/master/img/ArchiML.png "")
+![alt text](https://github.com/AurelienGalicher/k8s-training/raw/master/img/Archik8sML.png "")
 
 ## Instructions
 
