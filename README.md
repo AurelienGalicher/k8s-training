@@ -14,6 +14,10 @@ the architecture involves:
 
 ![alt text](https://github.com/AurelienGalicher/k8s-training/raw/master/img/ArchiFuncML.png "")
 
+## Kubernetes architecture
+
+![alt text](https://github.com/AurelienGalicher/k8s-training/raw/master/img/ArchiML.png "")
+
 ## Instructions
 
 we first create storage class to dynamically provision storage on GCP 
